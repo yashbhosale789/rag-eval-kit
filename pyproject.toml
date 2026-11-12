@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-eval-kit"
+version = "0.1.0"
+description = "Measure any RAG system: retrieval metrics, LLM-judged answers and paired comparisons, through a small adapter."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+judge = ["requests", "numpy", "sentence-transformers"]
+dev = ["pytest"]
+
+[project.scripts]
+rag-eval-kit = "rag_eval_kit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

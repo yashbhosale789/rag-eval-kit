@@ -1,0 +1,8 @@
+[
+  {"id": "Q1", "category": "normal", "difficulty": "easy", "origin": "manual", "split": "dev", "ci": true,
+   "question": "Where is the spare tyre?", "ground_truth": "Under the boot floor.", "expected_outcome": "answer",
+   "relevant": [{"source": "a.pdf", "evidence": "the spare tyre is under the boot floor"}]},
+  {"id": "Q2", "category": "unanswerable", "difficulty": "easy", "origin": "manual", "split": "dev", "ci": false,
+   "question": "What is the tyre's colour?", "ground_truth": "Not stated.", "expected_outcome": "abstain",
+   "relevant": []}
+]

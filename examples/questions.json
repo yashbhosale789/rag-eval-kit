@@ -1,0 +1,37 @@
+[
+  {
+    "id": "Q1", "category": "normal", "difficulty": "easy", "origin": "manual", "split": "dev", "ci": true,
+    "question": "How often should I lubricate my bicycle chain?",
+    "ground_truth": "Every 300 kilometres, or after any ride in the rain.",
+    "expected_outcome": "answer",
+    "relevant": [{"source": "bicycle-care.txt", "evidence": "Clean and lubricate the chain every 300 kilometres"}]
+  },
+  {
+    "id": "Q2", "category": "normal", "difficulty": "easy", "origin": "manual", "split": "dev", "ci": true,
+    "question": "What tyre pressure should a mountain bike use?",
+    "ground_truth": "Between 25 and 35 psi.",
+    "expected_outcome": "answer",
+    "relevant": [{"source": "bicycle-care.txt", "evidence": "mountain bike tyres run between 25 and 35 psi"}]
+  },
+  {
+    "id": "Q3", "category": "normal", "difficulty": "medium", "origin": "manual", "split": "dev", "ci": false,
+    "question": "When should I water a houseplant?",
+    "ground_truth": "Only when the top two centimetres of soil feel dry.",
+    "expected_outcome": "answer",
+    "relevant": [{"source": "houseplants.txt", "evidence": "Water only when the top two centimetres of soil feel dry"}]
+  },
+  {
+    "id": "Q4", "category": "normal", "difficulty": "medium", "origin": "manual", "split": "test", "ci": false,
+    "question": "How much bigger should the new pot be when repotting?",
+    "ground_truth": "Only two to five centimetres wider than the old one.",
+    "expected_outcome": "answer",
+    "relevant": [{"source": "houseplants.txt", "evidence": "only two to five centimetres wider than the old one"}]
+  },
+  {
+    "id": "Q5", "category": "unanswerable", "difficulty": "easy", "origin": "manual", "split": "test", "ci": true,
+    "question": "What is the best brand of bicycle helmet?",
+    "ground_truth": "The documents do not say.",
+    "expected_outcome": "abstain",
+    "relevant": []
+  }
+]
