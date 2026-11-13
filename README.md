@@ -115,6 +115,9 @@ this sample size`: the last one means the change may still matter, but this many
 it. When you compare several metrics at once, pass `--family N` (Bonferroni) so one lucky metric does
 not count as a win. `--min-effect` sets the smallest difference worth acting on.
 
+A worked example on four real RAG systems (adapters, run files, a compared table):
+[rag-benchmarks](https://github.com/yashbhosale789/rag-benchmarks).
+
 ## Licence
 
 MIT.
