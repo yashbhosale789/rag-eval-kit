@@ -83,6 +83,8 @@ def select(items: list[dict], args: argparse.Namespace) -> list[dict]:
 def cmd_generate(args: argparse.Namespace) -> int:
     items = select(load_dataset(args.dataset), args)
     adapter = load_adapter(args.adapter)
+    if not getattr(adapter, "version", ""):
+        raise SystemExit(f"{args.adapter} has no `version`; generation needs it in every result key")
     out = Path(args.runs) / "generations.jsonl"
     todo = generate.pending(adapter, items, out, args.variant)
     n = min(len(todo), args.limit) if args.limit else len(todo)
@@ -132,6 +134,9 @@ def cmd_judge(args: argparse.Namespace) -> int:
             raise SystemExit("--version is required (the adapter version the generations were made with)")
         todo = judge.pending(items, runs / "generations.jsonl", runs / "judgments.jsonl", args.variants, args.version)
         n = min(len(todo), args.limit) if args.limit else len(todo)
+    if n == 0:
+        print("0 judge calls: nothing to judge")
+        return 0
     base, model, _ = judge.settings()
     print(f"{n} judge calls to {model} at {base} (relevancy also embeds locally with {args.embed_model})")
     if n and not args.yes:

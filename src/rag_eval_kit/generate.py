@@ -53,6 +53,8 @@ def run(
         started = time.monotonic()
         try:
             out = adapter.answer(item["question"])
+            if not isinstance(out, dict) or "answer" not in out:
+                raise TypeError("answer() must return a dict with an 'answer' key")
         except Exception as e:  # one failing question must not lose the run
             incomplete = True
             store.append(out_path, {**base, "error": f"{type(e).__name__}: {e}"})

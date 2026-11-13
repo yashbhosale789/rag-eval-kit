@@ -82,3 +82,25 @@ def test_gate_matches_harness_selfcheck():
     refused = {**gens, "v|A|f": {"key": "v|A|f", "refused": True}}
     assert gate.evaluate(items, refused, judged, "v", "f", 0.85, 0.75)[1]
     assert gate.evaluate(items, {}, judged, "v", "f", 0.85, 0.75)[0]
+
+
+def test_answer_without_answer_key_is_recorded_as_error(tmp_path):
+    class NoKey(Bot):
+        def answer(self, query):
+            return {"text": "x", "contexts": ["c"]}
+
+    out = tmp_path / "g.jsonl"
+    assert generate.run(NoKey(), ITEMS, out) is True
+    assert all("'answer'" in r["error"] for r in store.load(out).values())
+
+
+def test_cli_generate_without_version_says_so(tmp_path, monkeypatch):
+    import json
+
+    (tmp_path / "nov.py").write_text("class B:\n    def answer(self, q):\n        return {}\n")
+    data = tmp_path / "d.json"
+    data.write_text(json.dumps([{**ITEMS[0], "category": "normal", "difficulty": "easy", "origin": "manual",
+                                 "ground_truth": "g", "relevant": [{"source": "a.txt", "evidence": "e"}]}]))
+    monkeypatch.chdir(tmp_path)
+    with pytest.raises(SystemExit, match="version"):
+        cli.main(["generate", "--adapter", "nov:B", "--dataset", str(data)])

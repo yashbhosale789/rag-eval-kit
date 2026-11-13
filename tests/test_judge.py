@@ -80,3 +80,16 @@ def test_missing_settings_explain_themselves(monkeypatch):
 
 def test_auc():
     assert judge.auc([1.0, 1.0], [0.0, 0.0]) == 1.0 and judge.auc([0.5], [0.5]) == 0.5
+
+
+def test_cli_judge_with_nothing_to_judge_needs_no_endpoint(tmp_path, monkeypatch, capsys):
+    from rag_eval_kit import cli
+
+    data = tmp_path / "d.json"
+    data.write_text(json.dumps([{**ITEMS[0], "split": "dev", "ci": True, "category": "normal",
+                                 "difficulty": "easy", "origin": "manual",
+                                 "relevant": [{"source": "a.txt", "evidence": "e"}]}]))
+    for var in ("JUDGE_BASE_URL", "JUDGE_MODEL", "JUDGE_API_KEY"):
+        monkeypatch.delenv(var, raising=False)
+    assert cli.main(["judge", "--dataset", str(data), "--version", "v1", "--runs", str(tmp_path)]) == 0
+    assert "0 judge calls" in capsys.readouterr().out

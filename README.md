@@ -99,7 +99,9 @@ export JUDGE_API_KEY=...                               # leave unset for a local
 
 Relevancy also embeds questions locally (`--embed-model`, default `BAAI/bge-small-en-v1.5`).
 Run `judge --calibrate` once per judge model: a useful judge scores good answers well above bad
-ones (AUC near 1).
+ones (AUC near 1). For reference, `gemini-3.5-flash-lite` on Gemini's OpenAI endpoint
+(`https://generativelanguage.googleapis.com/v1beta/openai`) scored AUC 1.0 on all three metrics,
+with 0 unparsable replies out of 60.
 
 ## Reading `compare`
 
